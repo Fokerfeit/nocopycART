@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>View Artwork — NocopycART</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body{font-family:Inter,Arial;margin:0;padding:20px;background:#f4f7fb}
+    .viewer{max-width:1100px;margin:0 auto;background:white;padding:16px;border-radius:10px}
+    canvas{width:100%;height:auto;border-radius:8px;display:block}
+    .controls{margin-top:10px;display:flex;gap:8px;align-items:center}
+    button{padding:8px 12px;border-radius:8px;background:#4b7bec;color:white;border:none}
+  </style>
+</head>
+<body>
+<div class="viewer">
+  <h2 id="title">Artwork</h2>
+  <canvas id="canvas"></canvas>
+  <div class="controls">
+    <input id="buyerName" placeholder="Your name (will be stamped)"/>
+    <button id="renderBtn">Render Watermarked</button>
+    <button id="downloadBtn" disabled>Download Watermarked</button>
+  </div>
+  <p class="small">Right-click and downloads are discouraged; watermark will be embedded in downloaded image.</p>
+</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const artId = params.get('artId');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const buyerNameInput = document.getElementById('buyerName');
+const renderBtn = document.getElementById('renderBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+
+async function fetchImageBlob() {
+  const res = await fetch('/image/' + artId);
+  if (!res.ok) throw new Error('Image fetch failed');
+  return await res.blob();
+}
+
+async function renderWatermark() {
+  renderBtn.disabled = true;
+  try {
+    const blob = await fetchImageBlob();
+    const img = await createImageBitmap(blob);
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    const buyer = buyerNameInput.value.trim() || 'Buyer';
+    const ts = new Date().toLocaleString();
+    const text = `Purchased by: ${buyer} • ${ts}`;
+
+    ctx.save();
+    ctx.font = `${Math.max(18, Math.floor(canvas.width / 40))}px Arial`;
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.rotate(-Math.PI/6);
+    ctx.textAlign = 'center';
+    const step = canvas.width / 3;
+    for (let x = -canvas.width; x < canvas.width; x += step) {
+      ctx.fillText(text, x, 0);
+    }
+    ctx.restore();
+    downloadBtn.disabled = false;
+  } catch (e) {
+    alert('Render error: ' + e.message);
+    console.error(e);
+  } finally {
+    renderBtn.disabled = false;
+  }
+}
+
+renderBtn.addEventListener('click', renderWatermark);
+downloadBtn.addEventListener('click', () => {
+  const dataURL = canvas.toDataURL('image/png');
+  const a = document.createElement('a');
+  a.href = dataURL;
+  a.download = `${artId}_watermarked.png`;
+  a.click();
+});
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) e.preventDefault();
+});
+</script>
+</body>
+</html>

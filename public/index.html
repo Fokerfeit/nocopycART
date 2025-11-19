@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NoCopycART Studio</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://pixijs.download/release/pixi.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">NocopycART — Studio</div>
+    <div><button id="refreshBtn">Refresh Gallery</button></div>
+  </header>
+
+  <main class="main">
+    <section class="editor">
+      <div class="controls">
+        <input id="artist" placeholder="Your artist name (optional)" />
+        <input id="price" placeholder="Price in Pi (e.g. 1.5)" type="number" step="0.01"/>
+        <select id="brushSelect">
+          <option value="round">Round</option>
+          <option value="soft">Soft</option>
+          <option value="spray">Spray</option>
+        </select>
+        <input id="color" type="color" value="#000000"/>
+        <input id="size" type="range" min="1" max="60" value="8"/>
+        <button id="undo">Undo</button>
+        <button id="redo">Redo</button>
+        <button id="clear">Clear</button>
+        <button id="sell">Sell (create pending)</button>
+      </div>
+      <div id="canvas-wrap"></div>
+    </section>
+
+    <aside class="sidebar">
+      <h3>Gallery</h3>
+      <div id="gallery"></div>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

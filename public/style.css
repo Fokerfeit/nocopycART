@@ -1,0 +1,16 @@
+:root{--bg:#f4f7fb;--card:#fff;--accent:#4b7bec;--muted:#6b7280}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial;background:linear-gradient(180deg,#f7fbff,#f4f7fb);color:#111}
+.topbar{display:flex;justify-content:space-between;padding:12px 20px;background:linear-gradient(90deg,var(--accent),#50d2c2);color:#fff}
+.main{display:flex;gap:20px;padding:20px;max-width:1200px;margin:0 auto}
+.editor{flex:1}
+.sidebar{width:320px}
+.controls{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 20px rgba(2,6,23,0.06);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls input, .controls select{padding:8px;border-radius:8px;border:1px solid #e5e7eb}
+#canvas-wrap{margin-top:12px;background:#fff;border-radius:10px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(2,6,23,0.06)}
+#gallery{display:grid;grid-auto-rows:auto;gap:10px;max-height:640px;overflow:auto}
+.card{background:var(--card);padding:10px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:8px}
+.card img{width:100%;border-radius:6px;object-fit:cover}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700}
+.badge.pending{background:#fff4e5;color:#8a5800}
+.badge.sold{background:#e8fff5;color:#068a4b}
