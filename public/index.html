@@ -3,75 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>nocopycART — Draw</title>
-  <link href="styles.css" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>nocopycART</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <svg width="36" height="36" viewBox="0 0 24 24" class="logo" aria-hidden="true">
-        <path fill="currentColor" d="M12 2L2 7v7c0 5 5 8 10 8s10-3 10-8V7l-10-5z"></path>
-      </svg>
-      <div>
-        <h1>nocopycART</h1>
-        <p class="tagline">Smooth drawing, easy export, Pi testnet ready</p>
-      </div>
-    </div>
-    <div class="header-actions">
-      <button id="connectPiBtn" class="btn">Connect Pi Testnet</button>
-    </div>
-  </header>
+  <canvas id="drawCanvas"></canvas>
 
-  <main class="main">
-    <aside class="toolbar" aria-label="Drawing tools">
-      <div class="tool-row">
-        <label>Color</label>
-        <input id="color" type="color" value="#0b3cff"/>
-      </div>
-
-      <div class="tool-row">
-        <label>Brush</label>
-        <input id="size" type="range" min="1" max="64" value="6"/>
-        <span id="sizeValue">6</span>px
-      </div>
-
-      <div class="tool-row">
-        <label>Smoothing</label>
-        <input id="smoothing" type="checkbox" checked/>
-      </div>
-
-      <div class="tool-row">
-        <button id="undoBtn" class="btn">Undo</button>
-        <button id="redoBtn" class="btn ghost">Redo</button>
-      </div>
-
-      <div class="tool-row">
-        <button id="clearBtn" class="btn danger">Clear</button>
-        <button id="saveBtn" class="btn primary">Save PNG</button>
-      </div>
-
-      <div class="tool-row small-note">
-        Tip: Use pen/tablet or touch devices for pressure-sensitive strokes.
-      </div>
-
-      <div class="tool-row">
-        <label for="piAppUrl">Pi Testnet App URL</label>
-        <input id="piAppUrl" type="url" placeholder="https://your-pi-testnet-app.example" />
-      </div>
-    </aside>
-
-    <section class="canvas-wrap">
-      <canvas id="drawCanvas" width="1200" height="700" aria-label="Drawing canvas"></canvas>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div>© <span id="year"></span> nocopycART — Built with care</div>
-    <div class="credits">Made by Fokerfeit</div>
-  </footer>
-
-  <script src="script.js"></script>
+  <script src="/js/script.js" defer></script>
 </body>
 </html>
